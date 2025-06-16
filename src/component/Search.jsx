@@ -16,7 +16,7 @@ const UserSidebar = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/users/all', {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/all`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setUsers(res.data);

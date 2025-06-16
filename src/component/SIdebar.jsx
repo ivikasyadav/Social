@@ -16,7 +16,7 @@ const UserSidebar = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/users/all', {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/all`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setUsers(res.data);
@@ -29,7 +29,7 @@ const UserSidebar = () => {
 
     const fetchFollowing = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/users/following', {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const followedIds = res.data.map(user => user._id);
@@ -42,8 +42,8 @@ const UserSidebar = () => {
     const toggleFollow = async (userId) => {
         const isFollowing = following.includes(userId);
         const endpoint = isFollowing
-            ? `http://localhost:5000/api/users/unfollow/${userId}`
-            : `http://localhost:5000/api/users/follow/${userId}`;
+            ? `${import.meta.env.VITE_API_URL}/api/users/unfollow/${userId}`
+            : `${import.meta.env.VITE_API_URL}/api/users/follow/${userId}`;
 
         try {
             await axios.post(endpoint, {}, {
@@ -55,7 +55,7 @@ const UserSidebar = () => {
                 removePostsByCelebrityId(userId);
             } else {
                 setFollowing(prev => [...prev, userId]);
-                const postRes = await axios.get(`http://localhost:5000/api/posts/by/${userId}`, {
+                const postRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/posts/by/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 if (postRes.data?.length > 0) {

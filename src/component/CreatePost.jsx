@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:5000'); 
+const socket = io(`${import.meta.env.VITE_API_URL}`); 
 
 const CreatePost = () => {
     const { token, user } = useAuth();
@@ -14,7 +14,7 @@ const CreatePost = () => {
 
     useEffect(() => {
         if (user?._id) {
-            socket.emit('join', user._id); 
+            socket.emit('join', user._id);
         }
     }, [user]);
 
@@ -44,7 +44,7 @@ const CreatePost = () => {
         if (image) formData.append('image', image);
 
         try {
-            const res = await axios.post('http://localhost:5000/api/posts', formData, {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/posts`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
@@ -52,8 +52,7 @@ const CreatePost = () => {
             });
 
             const createdPost = res.data;
-
-            socket.emit('new-post', createdPost);
+            socket.emit('new-post', { type: 'create', post: createdPost });
 
             setMessage('Post created successfully!');
             setCaption('');

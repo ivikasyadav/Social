@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Notification from '../component/Notification'; 
 
 const Navbar = () => {
     const { user, logout } = useAuth();
@@ -20,6 +21,7 @@ const Navbar = () => {
                 >
                     Social App
                 </Link>
+               
 
                 <div className="flex items-center space-x-2 md:space-x-4">
                     <div className="hidden sm:flex items-center space-x-2 md:space-x-4">
@@ -52,7 +54,7 @@ const Navbar = () => {
                                     to="/pub/selected"
                                     className="px-3 py-1 rounded-lg hover:bg-purple-700 bg-opacity-0 hover:bg-opacity-20 transition duration-300"
                                 >
-                                    Following 
+                                    Following
                                 </Link>
                             </>
                         )}
@@ -81,7 +83,7 @@ const Navbar = () => {
                                     to="/celeb/selectpost"
                                     className="px-3 py-1 rounded-lg hover:bg-purple-700 bg-opacity-0 hover:bg-opacity-20 transition duration-300"
                                 >
-                                    Following 
+                                    Following
                                 </Link>
                             </>
                         )}
@@ -98,6 +100,7 @@ const Navbar = () => {
                             >
                                 Logout
                             </button>
+                            {user && <Notification />} 
                         </div>
                     )}
                 </div>
