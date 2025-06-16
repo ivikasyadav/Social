@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // <-- import context
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -9,7 +9,7 @@ const Login = () => {
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { login } = useAuth(); // <-- use login from context
+    const { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,7 +17,7 @@ const Login = () => {
         setError('');
         setSuccess('');
 
-        const result = await login(email, password); // <-- login call
+        const result = await login(email, password);
         setLoading(false);
 
         if (result.success) {
@@ -29,52 +29,78 @@ const Login = () => {
     };
 
     return (
-        <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-200">
-            <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Login</h2>
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-50 to-purple-50 p-6">
+            <div className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-lg border border-gray-200 transform transition-all hover:shadow-3xl">
+                <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-10">Welcome Back</h2>
 
-            <form onSubmit={handleSubmit}>
-                <div className="mb-6">
-                    <label htmlFor="email" className="block text-gray-700 text-sm font-medium mb-2">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                    />
-                </div>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-2">
+                        <label htmlFor="email" className="block text-lg font-medium text-gray-700 mb-2">
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="w-full px-5 py-3 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                            placeholder="your@email.com"
+                        />
+                    </div>
 
-                <div className="mb-6">
-                    <label htmlFor="password" className="block text-gray-700 text-sm font-medium mb-2">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                    />
-                </div>
+                    <div className="space-y-2">
+                        <label htmlFor="password" className="block text-lg font-medium text-gray-700 mb-2">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            className="w-full px-5 py-3 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                            placeholder="••••••••"
+                        />
+                    </div>
 
-                {error && <p className="text-red-600 mb-4">{error}</p>}
-                {success && <p className="text-green-600 mb-4">{success}</p>}
+                    {error && (
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-5 py-3 rounded-xl text-lg">
+                            {error}
+                        </div>
+                    )}
+                    {success && (
+                        <div className="bg-green-100 border border-green-400 text-green-700 px-5 py-3 rounded-xl text-lg">
+                            {success}
+                        </div>
+                    )}
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
-                >
-                    {loading ? 'Logging in...' : 'Login'}
-                </button>
-            </form>
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-4 text-xl rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 font-bold shadow-lg hover:shadow-xl"
+                    >
+                        {loading ? (
+                            <span className="inline-flex items-center justify-center gap-2">
+                                <svg className="animate-spin h-6 w-6 text-white" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Logging in...
+                            </span>
+                        ) : (
+                            'Login'
+                        )}
+                    </button>
+                </form>
 
-            <p className="mt-6 text-center text-gray-600 text-sm">
-                Don't have an account?{' '}
-                <Link className="text-blue-600 hover:text-blue-800 font-medium" to="/register">
-                    Register here
-                </Link>
-            </p>
+                <p className="mt-8 text-center text-gray-600 text-lg">
+                    Don't have an account?{' '}
+                    <Link to="/register" className="text-blue-600 hover:text-blue-800 font-bold underline">
+                        Register here
+                    </Link>
+                </p>
+            </div>
         </div>
     );
 };

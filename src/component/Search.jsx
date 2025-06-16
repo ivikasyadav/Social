@@ -23,7 +23,7 @@ const UserSidebar = () => {
             setFilteredUsers(res.data);
         } catch (err) {
             console.error(err);
-            setError('Failed to fetch users');
+            set1Error('Failed to fetch users'); 
         }
     };
 
@@ -85,8 +85,8 @@ const UserSidebar = () => {
     }, [token]);
 
     return (
-        <div className="w-64 bg-gray-50 h-screen shadow-lg border-r border-gray-200 p-4 overflow-y-auto sticky top-0">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">
+        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl shadow-lg p-6 mb-6 max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
                 All Celebrities
             </h2>
 
@@ -95,17 +95,17 @@ const UserSidebar = () => {
                 value={searchTerm}
                 onChange={handleSearch}
                 placeholder="Search by name or email"
-                className="w-full px-3 py-2 mb-4 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+                className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
 
-            {loading && <p className="text-gray-500 italic">Loading users...</p>}
-            {error && <p className="text-red-500 font-medium">{error}</p>}
+            {loading && <p className="text-center text-gray-500 italic">Loading users...</p>}
+            {error && <p className="text-center text-red-500 font-medium">{error}</p>}
 
-            <ul className="space-y-2">
+            <ul className="space-y-3">
                 {filteredUsers.map(user => (
                     <li
                         key={user._id}
-                        className="flex flex-col items-start bg-white hover:bg-purple-50 p-3 rounded-lg shadow-sm transition duration-200"
+                        className="flex flex-col items-start bg-white hover:bg-purple-50 p-4 rounded-lg shadow-sm transition duration-200"
                     >
                         <div className="w-full flex justify-between items-center mb-1">
                             <span className="font-medium text-gray-800">{user.name}</span>
@@ -113,8 +113,8 @@ const UserSidebar = () => {
                                 <button
                                     onClick={() => toggleFollow(user._id)}
                                     className={`px-3 py-1 text-xs md:text-sm rounded-full transition duration-200 ${following.includes(user._id)
-                                            ? 'bg-red-400 hover:bg-red-500 text-white'
-                                            : 'bg-green-400 hover:bg-green-500 text-white'
+                                        ? 'bg-red-400 hover:bg-red-500 text-white'
+                                        : 'bg-green-400 hover:bg-green-500 text-white'
                                         }`}
                                 >
                                     {following.includes(user._id) ? 'Unfollow' : 'Follow'}

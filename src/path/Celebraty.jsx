@@ -8,51 +8,56 @@ import RoleBasedRoute from '../route/ROlebased';
 import { useAuth } from '../context/AuthContext';
 import MyPosts from '../component/Mypost';
 import AllPost from '../public/AllPost';
+import Feed from '../public/Feed';
+import Footer from '../component/Footer';
+import Search from '../component/Search'
 
 const Public = () => {
     const { user, token, logout } = useAuth();
-    const navigate=useNavigate()
-
-    console.log(user)
-    console.log(token)
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!user) {
             navigate('/pub');
         }
     }, [user, navigate]);
-      
 
     return (
         <div className="flex flex-col h-screen">
-            <div className="flex flex-1">
-                <UserSidebar />
-                <div className="flex-1 p-2 overflow-y-auto">
-                    {/* <SmallNavbar2 /> */}
-                    <Routes>
-                        
-                        <Route path="/" element={<Home />} />
-                        {/* <Route path='/post' element={<CreatePost/>}/> */}
-                        {/* <ROute path='/myfeed' element= */}
+            <div className="flex flex-1 justify-center">
+                <div className="flex w-full max-w-screen-lg">
+                    <div className="hidden lg:block">
+                        <UserSidebar />
+                    </div>
+                    <div className="flex-1 p-2 overflow-y-auto">
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/post" element={
+                                <RoleBasedRoute allowedRoles={['celebrity']}>
+                                    <CreatePost />
+                                </RoleBasedRoute>
+                            } />
+                            <Route path="/myfeed" element={
+                                <RoleBasedRoute allowedRoles={['celebrity']}>
+                                    <MyPosts />
+                                </RoleBasedRoute>
+                            } />
+                            <Route path='/allpost' element={<AllPost />} />
+                            <Route path='/selectpost' element={<Feed/>}/>
+                       
 
-
-                        <Route path="/post" element={
-                            <RoleBasedRoute allowedRoles={['celebrity']}>
-                                <CreatePost />
-                            </RoleBasedRoute>
-                        } />
-                        <Route path="/myfeed" element={
-                            <RoleBasedRoute allowedRoles={['celebrity']}>
-                                <MyPosts />
-                            </RoleBasedRoute>
-                        } />
-                        <Route path='/allpost' element={<AllPost />} />
+                                <Route path='/sidebar' element={<Search />} />
+                            
+                        </Routes>
                         
-                    </Routes>
+                    </div>
+                    <div className="block lg:hidden">
+                        <Footer />
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
 
-export default Public
+export default Public;
