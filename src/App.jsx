@@ -22,7 +22,7 @@ function App() {
             <Navbar />
             <div className="flex-1 overflow-y-auto">
               <Routes>
-                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
                 <Route path="/celeb/*" element={

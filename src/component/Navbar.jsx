@@ -9,7 +9,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/');
     };
 
     return (
@@ -28,7 +28,7 @@ const Navbar = () => {
                         {!user && (
                             <>
                                 <Link
-                                    to="/login"
+                                    to="/"
                                     className="px-3 py-1 rounded-lg bg-purple-500 hover:bg-purple-700 text-white transition duration-300 shadow hover:shadow-md"
                                 >
                                     Login
