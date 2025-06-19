@@ -1,12 +1,60 @@
-# React + Vite
+# 🌟 Social Feed App – Frontend (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend interface of the Infinite Scroll Social Feed app with real-time updates.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔥 Features
 
-## Expanding the ESLint configuration
+### 🧑‍🎤 User Roles
+- Celebrity: Can post content (text & image), see their own posts
+- Public: Can follow celebrities and see posts from followed users
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🎯 Functionality
+- Infinite scrolling feed
+- Real-time notifications when followed celebrities post
+- Notification badge updates
+- Lazy-loading post images
+- Responsive layout for mobile & desktop
+- Smooth transitions on scroll
+- Mock login buttons for demo
+
+---
+
+## 🖥 Tech Stack
+
+- React + Vite
+- Axios
+- React Router
+- Tailwind CSS or custom CSS
+- WebSocket (Socket.IO Client)
+- React Toastify / Notification UI
+- React Infinite Scroll Component
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Navigate to frontend folder
+
+```bash
+cd client
+
+
+2. Install dependencies
+bash
+Copy
+Edit
+npm install
+
+3. Create .env file
+env
+Copy
+Edit
+VITE_BACKEND_URL=http://localhost:5000
+
+4. Start the development server
+bash
+Copy
+Edit
+npm run dev
